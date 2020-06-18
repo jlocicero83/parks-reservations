@@ -30,7 +30,7 @@ namespace Capstone.DAL
 
                     while (rdr.Read())
                     {
-                        Park park = ConvertReaderToPark(rdr);
+                        Park park = RowToObject(rdr);
                         parks.Add(park);
                     }
                 }
@@ -44,7 +44,7 @@ namespace Capstone.DAL
             return parks;
 
         }
-        private static Park ConvertReaderToPark(SqlDataReader rdr)
+        private static Park RowToObject(SqlDataReader rdr)
         {
             Park park = new Park();
             park.Park_ID = Convert.ToInt32(rdr["park_id"]);
