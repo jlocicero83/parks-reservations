@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Capstone.DAL
 {
-    class ParkSqlDAO
+    public class ParkSqlDAO
     {
         private string connectionString;
 
