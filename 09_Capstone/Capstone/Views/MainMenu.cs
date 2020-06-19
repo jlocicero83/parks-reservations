@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.DAL;
+using System;
 using System.Collections.Generic;
 
 namespace CLI
@@ -10,14 +11,18 @@ namespace CLI
     {
         // You may want to store some private variables here.  YOu may want those passed in 
         // in the constructor of this menu
-
+        protected ICampgroundSqlDAO campgroundDAO;
+        protected ISiteSqlDAO siteDAO;
+        protected IParkSqlDAO parkDAO;
         /// <summary>
         /// Constructor adds items to the top-level menu. You will likely have parameters  passed in
         /// here...
         /// </summary>
-        public MainMenu(/* Add any needed parameters here */) : base("Main Menu")
+        public MainMenu(ICampgroundSqlDAO campgroundDAO, ISiteSqlDAO siteDAO, IParkSqlDAO parkDAO) : base("Main Menu")
         {
-            // Set any private variables here.
+            this.campgroundDAO = campgroundDAO;
+            this.siteDAO = siteDAO;
+            this.parkDAO = parkDAO;
         }
 
         protected override void SetMenuOptions()

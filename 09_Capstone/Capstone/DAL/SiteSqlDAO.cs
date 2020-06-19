@@ -6,10 +6,10 @@ using System.Text;
 
 namespace Capstone.DAL
 {
-    public class SiteSqlDAO
+    public class SiteSqlDAO : ISiteSqlDAO
     {
         private string connectionString;
-        
+
 
         public SiteSqlDAO(string databaseconnectionString)
         {
@@ -18,13 +18,18 @@ namespace Capstone.DAL
 
         public IList<Site> SearchSitesByDate(int campgroundID, DateTime fromDate, DateTime toDate)
         {
-           
+
             List<Site> sites = new List<Site>();
-            string sqlQuery = @"Select Top 5 site_number, max_occupancy, accessible, max_rv_length, utilities from site s
-	                                    join reservation r on s.site_id = r.site_id
-	                                        where s.campground_id = @campgroundID and 
-                                            (@from not between from_date AND to_date) and 
-                                            (@to not between from_date AND to_date)";
+            string sqlQuery = @"Select Top 5 site_number, max_occupancy, accessible, max_rv_length, utilities from site 
+                                    where campground_id = @campground_id and site_id not in
+                                        (Select s.site_id from site s
+                                        join reservation r on s.site_id = r.site_id
+                                        where campground_id = @campground_id AND ((from_date between @from AND @to) OR
+                                        (to_date between @from AND @to) OR
+                                        (from_date = @from AND to_date = @to) OR
+                                        (from_date < @from AND to_date > @to) OR
+                                        (to_date = @from) OR
+                                        (from_date = @to)))";
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -38,7 +43,7 @@ namespace Capstone.DAL
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
-                       Site site = RowToObject(rdr);
+                        Site site = RowToObject(rdr);
                         sites.Add(site);
 
                     }

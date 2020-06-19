@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Capstone.DAL
 {
-    public class CampgroundSqlDAO
+    public class CampgroundSqlDAO : ICampgroundSqlDAO
     {
         private string connectionString;
 
@@ -54,7 +54,7 @@ namespace Capstone.DAL
             campground.Open_From = Convert.ToInt32(rdr["open_from"]);
             campground.Open_To = Convert.ToInt32(rdr["open_to"]);
             campground.Daily_Fee = Convert.ToDecimal(rdr["daily_fee"]);
-            
+
             return campground;
         }
 
