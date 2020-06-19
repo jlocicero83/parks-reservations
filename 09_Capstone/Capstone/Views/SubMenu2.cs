@@ -46,8 +46,8 @@ namespace Capstone.Views
             switch (choice)
             {
                 case "1": // Do whatever option 1 is
-                    Console.Write("Which campground? ");
-                    int campgroundID = GetInteger(Console.ReadLine());
+                    
+                    int campgroundID = GetInteger("Which campground?");
 
                     Console.Write("What is the arrival date? __/__/____ ");
                     DateTime fromDate = Convert.ToDateTime(Console.ReadLine());

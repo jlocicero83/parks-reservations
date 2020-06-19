@@ -20,7 +20,7 @@ namespace Capstone.DAL
         {
 
             List<Site> sites = new List<Site>();
-            string sqlQuery = @"Select Top 5 site_number, max_occupancy, accessible, max_rv_length, utilities from site 
+            string sqlQuery = @"Select Top 5 site_id, campground_id, site_number, max_occupancy, accessible, max_rv_length, utilities from site 
                                     where campground_id = @campground_id and site_id not in
                                         (Select s.site_id from site s
                                         join reservation r on s.site_id = r.site_id
@@ -36,7 +36,7 @@ namespace Capstone.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(sqlQuery, conn);
-                    cmd.Parameters.AddWithValue("@campgroundID", campgroundID);
+                    cmd.Parameters.AddWithValue("@campground_ID", campgroundID);
                     cmd.Parameters.AddWithValue("@from", fromDate);
                     cmd.Parameters.AddWithValue("@to", toDate);
 

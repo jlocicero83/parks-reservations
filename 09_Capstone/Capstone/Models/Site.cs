@@ -14,5 +14,11 @@ namespace Capstone.Models
         public int Max_RV_Length { get; set; }
         public bool HasUtilities { get; set; }
 
+        public override string ToString()
+        {
+            return $"Results Matching Your Search Criteria\n-----------------------------------\nSite No.: {Site_Number}\n*\nMax Occup.: {Max_Occupancy}\n*\n" +
+                $"Accessible? {IsAccessible}\n*\nMax RV Length: {Max_RV_Length}\n*\nUtility: {HasUtilities}\n*\n";
+        }
+
     }
 }
