@@ -9,7 +9,7 @@ namespace Capstone.DAL
     public class SiteSqlDAO
     {
         private string connectionString;
-        private List<Site> ValidSites = new List<Site>();
+        
 
         public SiteSqlDAO(string databaseconnectionString)
         {
@@ -18,6 +18,7 @@ namespace Capstone.DAL
 
         public IList<Site> SearchSitesByDate(int campgroundID, DateTime fromDate, DateTime toDate)
         {
+           
             List<Site> sites = new List<Site>();
             string sqlQuery = @"Select Top 5 site_number, max_occupancy, accessible, max_rv_length, utilities from site s
 	                                    join reservation r on s.site_id = r.site_id
