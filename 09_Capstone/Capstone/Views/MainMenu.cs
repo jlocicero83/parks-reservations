@@ -1,4 +1,5 @@
 ﻿using Capstone.DAL;
+using Capstone.Models;
 using System;
 using System.Collections.Generic;
 
@@ -27,10 +28,18 @@ namespace CLI
 
         protected override void SetMenuOptions()
         {
+            IList<Park> parks = parkDAO.GetAllParks();
+            int key = 1;
+            foreach (Park park in parks)
+            {
+                this.menuOptions.Add(key.ToString(), park.Name);
+                key++;
+            }
+            
             // A Sample menu.  Build the dictionary here
-            this.menuOptions.Add("1", "Add 2 integers");
-            this.menuOptions.Add("2", "Ask the user for name");
-            this.menuOptions.Add("3", "Go to a sub-menu");
+            //this.menuOptions.Add("1", "Add 2 integers");
+            //this.menuOptions.Add("2", "Ask the user for name");
+            //this.menuOptions.Add("3", "Go to a sub-menu");
             this.menuOptions.Add("Q", "Quit program");
         }
 
@@ -42,27 +51,33 @@ namespace CLI
         /// <returns></returns>
         protected override bool ExecuteSelection(string choice)
         {
-            switch (choice)
-            {
-                case "1": // Do whatever option 1 is. You may prompt the user for more information
-                            // (using the Helper methods), and then pass those values into some 
-                            //business object to get something done.
-                    int i1 = GetInteger("Enter the first integer: ");
-                    int i2 = GetInteger("Enter the second integer: ");
-                    Console.WriteLine($"{i1} + {i2} = {i1+i2}");
-                    Pause("Press enter to continue");
-                    return true;    // Keep running the main menu
-                case "2": // Do whatever option 2 is
-                    string name = GetString("What is your name?");
-                    WriteError($"Not yet implemented, {name}.");
-                    Pause("");
-                    return true;    // Keep running the main menu
-                case "3": 
-                    // Create and show the sub-menu
-                    SubMenu1 sm = new SubMenu1();
-                    sm.Run();
-                    return true;    // Keep running the main menu
-            }
+            IList<Park> parks = parkDAO.GetAllParks();
+            int key = int.Parse(choice) - 1;
+            Park park = parks[key];
+            SubMenu1 subMenu1 = new SubMenu1(park, campgroundDAO, siteDAO);
+            subMenu1.Run();
+
+            //switch (choice)
+            //{
+            //    case "1": // Do whatever option 1 is. You may prompt the user for more information
+            //                // (using the Helper methods), and then pass those values into some 
+            //                //business object to get something done.
+            //        int i1 = GetInteger("Enter the first integer: ");
+            //        int i2 = GetInteger("Enter the second integer: ");
+            //        Console.WriteLine($"{i1} + {i2} = {i1+i2}");
+            //        Pause("Press enter to continue");
+            //        return true;    // Keep running the main menu
+            //    case "2": // Do whatever option 2 is
+            //        string name = GetString("What is your name?");
+            //        WriteError($"Not yet implemented, {name}.");
+            //        Pause("");
+            //        return true;    // Keep running the main menu
+            //    case "3": 
+            //        // Create and show the sub-menu
+            //        SubMenu1 sm = new SubMenu1();
+            //        sm.Run();
+            //        return true;    // Keep running the main menu
+            //}
             return true;
         }
 

@@ -9,6 +9,7 @@ namespace Capstone.DAL
     public class ParkSqlDAO : IParkSqlDAO
     {
         private string connectionString;
+        public List<Park> parks;
 
         public ParkSqlDAO(string databaseconnectionString)
         {

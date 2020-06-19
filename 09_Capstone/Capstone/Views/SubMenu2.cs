@@ -1,15 +1,14 @@
 ﻿using Capstone.DAL;
 using Capstone.Models;
-using Capstone.Views;
+using CLI;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Text;
 
-namespace CLI
+namespace Capstone.Views
 {
-    /// <summary>
-    /// A sub-menu 
-    /// </summary>
-    public class SubMenu1 : CLIMenu
+    public class SubMenu2 : CLIMenu
     {
         // Store any private variables here....
         private Park park;
@@ -21,8 +20,8 @@ namespace CLI
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
-        public SubMenu1(Park park, ICampgroundSqlDAO campgroundDAO, ISiteSqlDAO siteDAO) :
-            base("Sub-Menu 1")
+        public SubMenu2(Park park, ICampgroundSqlDAO campgroundDAO, ISiteSqlDAO siteDAO) :
+            base("Sub-Menu 2")
         {
             this.park = park;
             this.campgroundDAO = campgroundDAO;
@@ -31,10 +30,9 @@ namespace CLI
 
         protected override void SetMenuOptions()
         {
-            this.menuOptions.Add("1", "View Campgrounds");
-            this.menuOptions.Add("2", "Search for Reservation");
-            this.menuOptions.Add("3", "Return to Previous Screen");
-            this.quitKey = "3";
+            this.menuOptions.Add("1", "Search for Available Reservation");
+            this.menuOptions.Add("2", "Return to Previous Screen");
+            this.quitKey = "2";
         }
 
         /// <summary>
@@ -48,8 +46,21 @@ namespace CLI
             switch (choice)
             {
                 case "1": // Do whatever option 1 is
-                    SubMenu2 submenu2 = new SubMenu2(park, campgroundDAO, siteDAO);
-                    submenu2.Run();
+                    Console.Write("Which campground? ");
+                    int campgroundID = GetInteger(Console.ReadLine());
+
+                    Console.Write("What is the arrival date? __/__/____ ");
+                    DateTime fromDate = Convert.ToDateTime(Console.ReadLine());
+
+                    Console.Write("What is the departure date? __/__/____ ");
+                    DateTime toDate = Convert.ToDateTime(Console.ReadLine());
+
+                    sites = siteDAO.SearchSitesByDate(campgroundID, fromDate, toDate);
+                    foreach (Site site in sites)
+                    {
+                        Console.WriteLine(site);
+                    }
+
                     WriteError("Not yet implemented");
                     Pause("");
                     return true;
@@ -64,7 +75,11 @@ namespace CLI
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();
-            Console.WriteLine(park.ToString());
+            campgrounds = (campgroundDAO.GetCampgroundsByParkID(park.Park_ID));
+            foreach (Campground campground in campgrounds)
+            {
+                Console.WriteLine(campground.ToString());
+            }
         }
 
         protected override void AfterDisplayMenu()
@@ -78,9 +93,8 @@ namespace CLI
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 1"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 2"));
             ResetColor();
         }
-
     }
 }

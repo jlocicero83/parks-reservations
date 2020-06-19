@@ -33,7 +33,7 @@ namespace Capstone.Models
 
         public override string ToString()
         {
-            return $"Campground ID: {this.Campgound_ID}\nName: {this.Name}\nOpen: {months[Open_From]}\nClose: {months[Open_To]}\nDaily Fee: {this.Daily_Fee:C}";
+            return $"Campground ID: #{this.Campgound_ID}\n-------\nName: {this.Name}\n-------\nOpen: {months[Open_From]}\n-------\nClose: {months[Open_To]}\n-------\nDaily Fee: {this.Daily_Fee:C}";
         }
 
     }

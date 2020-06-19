@@ -51,8 +51,8 @@ namespace Capstone.DAL
             campground.Campgound_ID = Convert.ToInt32(rdr["campground_id"]);
             campground.Park_ID = Convert.ToInt32(rdr["park_id"]);
             campground.Name = Convert.ToString(rdr["name"]);
-            campground.Open_From = Convert.ToInt32(rdr["open_from"]);
-            campground.Open_To = Convert.ToInt32(rdr["open_to"]);
+            campground.Open_From = Convert.ToInt32(rdr["open_from_mm"]);
+            campground.Open_To = Convert.ToInt32(rdr["open_to_mm"]);
             campground.Daily_Fee = Convert.ToDecimal(rdr["daily_fee"]);
 
             return campground;
