@@ -30,10 +30,14 @@ namespace Capstone.Models
 
         };
 
+        public static string GetHeader()
+        {
+            return $"{"ID",-5} {"Name",-35} {"Open",-15} {"Close",-15} {"Daily Fee",-15}\n{"--",-6}{"----", -36}{"----", -16}{"----", -16}{"---------", -16}";
+        }
 
         public override string ToString()
         {
-            return $"Campground ID: #{this.Campgound_ID}\n-------\nName: {this.Name}\n-------\nOpen: {months[Open_From]}\n-------\nClose: {months[Open_To]}\n-------\nDaily Fee: {this.Daily_Fee:C}";
+            return $"#{this.Campgound_ID,-4} {this.Name, -35} {months[Open_From], -15} {months[Open_To], -15} {this.Daily_Fee,5:C}";
         }
 
     }

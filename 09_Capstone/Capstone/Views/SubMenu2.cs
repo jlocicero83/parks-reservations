@@ -56,14 +56,22 @@ namespace Capstone.Views
                     DateTime toDate = Convert.ToDateTime(Console.ReadLine());
 
                     sites = siteDAO.SearchSitesByDate(campgroundID, fromDate, toDate);
-                    foreach (Site site in sites)
+                    if (sites.Count > 0)
                     {
-                        Console.WriteLine(site);
+                        Console.WriteLine(Site.GetHeader());
+                        foreach (Site site in sites)
+                        {
+                            Console.WriteLine(site);
+                        }
+                        Pause("");
+                        return true;
                     }
-
-                    WriteError("Not yet implemented");
-                    Pause("");
-                    return true;
+                    else
+                    {
+                        WriteError("Sorry, those dates are not available! Please try again");
+                        Pause("");
+                        return true;
+                    }
                 case "2": // Do whatever option 2 is
                     WriteError("When this option is complete, we will exit this submenu by returning false from the ExecuteSelection method.");
                     Pause("");
@@ -76,6 +84,7 @@ namespace Capstone.Views
         {
             PrintHeader();
             campgrounds = (campgroundDAO.GetCampgroundsByParkID(park.Park_ID));
+            Console.WriteLine(Campground.GetHeader());
             foreach (Campground campground in campgrounds)
             {
                 Console.WriteLine(campground.ToString());
