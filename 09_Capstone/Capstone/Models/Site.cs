@@ -36,8 +36,13 @@ namespace Capstone.Models
 
         public override string ToString()
         {
+            string rvLength = Convert.ToString(Max_RV_Length);
+            if (Max_RV_Length == 0)
+            {
+                rvLength = "N/A";
+            }
             return $"#{Site_Number, -9}{Max_Occupancy,-20}" +
-                $"{accessible[IsAccessible],-20}{Max_RV_Length,-20}{utilities[HasUtilities], -20}";
+                $"{accessible[IsAccessible],-20}{rvLength,-20}{utilities[HasUtilities], -20}";
         }
 
     }
