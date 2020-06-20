@@ -34,9 +34,9 @@ namespace Capstone.Tests
                 SqlDataReader rdr = cmd.ExecuteReader();
                 if (rdr.Read())
                 {
-                    park_id = Convert.ToInt32(rdr["park_id"]);
-                    campground_id = Convert.ToInt32(rdr["campground_id"]);
-                    site_id = Convert.ToInt32(rdr["site_id"]);
+                    park_id = Convert.ToInt32(rdr["ParkID"]);
+                    campground_id = Convert.ToInt32(rdr["CampgroundID"]);
+                    site_id = Convert.ToInt32(rdr["SiteID"]);
                 }
             }
         }
@@ -70,8 +70,8 @@ namespace Capstone.Tests
         {
             SiteSqlDAO dao = new SiteSqlDAO(connectionString);
 
-            DateTime fromDate = Convert.ToDateTime(06 - 18 - 2020);
-            DateTime toDate = Convert.ToDateTime(06 - 19 - 2020);
+            DateTime fromDate = Convert.ToDateTime("06/18/2020");
+            DateTime toDate = Convert.ToDateTime("06/19/2020");
 
             IList<Site> list = dao.SearchSitesByDate(campground_id, fromDate, toDate);
 
@@ -82,8 +82,8 @@ namespace Capstone.Tests
         {
             ReservationSqlDAO dao = new ReservationSqlDAO(connectionString);
 
-            DateTime fromDate = Convert.ToDateTime(06 - 18 - 2020);
-            DateTime toDate = Convert.ToDateTime(06 - 19 - 2020);
+            DateTime fromDate = Convert.ToDateTime("06/18/2020");
+            DateTime toDate = Convert.ToDateTime("06/19/2020");
 
             int reservation = dao.BookReservation(site_id, "Bob", fromDate, toDate);
 

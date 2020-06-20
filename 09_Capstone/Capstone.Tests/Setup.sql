@@ -1,13 +1,13 @@
 ﻿--begin transaction
 
 delete from reservation
-select * from reservation
+--select * from reservation
 delete from site
-select * from site
+--select * from site
 delete  from campground
-select * from campground
+--select * from campground
 delete from park
-select * from park
+--select * from park
 
 insert into park (name, location, establish_date, area, visitors, description)
 	values ('Tech Elevator Park', 'Cleveland', '2020-03-02', 4, 28, 'A park...')
@@ -28,7 +28,7 @@ declare @site_id int
 select @site_id = @@IDENTITY
 insert into reservation (site_id, name, from_date, to_date, create_date)
 	values (@site_id, 'Jenkins', '2020-04-09', '2020-04-11', '2020-03-01')
-select * from reservation
-
+--select * from reservation
+Select @park_id As ParkId, @campground_id As CampgroundID, @site_id As SiteID
 
 --rollback transaction
