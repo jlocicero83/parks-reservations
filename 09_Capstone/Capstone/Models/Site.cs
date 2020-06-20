@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Capstone.Models
 {
-    public class Site
+    public class Site 
     {
         public int Site_ID { get; set; }
         public int Campground_ID { get; set; }
@@ -14,12 +14,12 @@ namespace Capstone.Models
         public int Max_RV_Length { get; set; }
         public bool HasUtilities { get; set; }
 
-        public static string GetHeader()
+        public static string PrintHeader()
         {
             return $"\n\nResults Matching Your Search Criteria\n" +
                 $"----------------------------------------------------------------------------------------------\n" +
                 $"{"Site No.",-10}{"Max Occup.",-20}{"Accessible?",-20}" +
-                $"{"Max RV Length",-20}{"Utility",-20}{"Cost",-20}";
+                $"{"Max RV Length",-20}{"Utility",-20}";
         }
 
         public override string ToString()

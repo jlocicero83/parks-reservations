@@ -43,5 +43,34 @@ namespace Capstone.DAL
             }
             return confirmationNumber;
         }
+
+        public decimal GetTotalCost(int campground_id, DateTime from_date, DateTime to_date)
+        {
+            int durationOfStay = (to_date - from_date).Days;
+            decimal totalCost;
+            string sqlQuery = @"select daily_fee from campground
+	                                where campground_id = @campground_id";
+
+            try
+            {
+                decimal dailyFee;
+               using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sqlQuery, conn);
+                    cmd.Parameters.AddWithValue("@campground_id", campground_id);
+                    dailyFee = Convert.ToDecimal(cmd.ExecuteScalar());
+                }
+                totalCost = dailyFee * durationOfStay;
+                return totalCost;
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+
+
+
+        }
     }
 }

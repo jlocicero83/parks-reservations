@@ -33,7 +33,7 @@ namespace Capstone.Views
         protected override void SetMenuOptions()
         {
             this.menuOptions.Add("1", "Search for Available Reservation");
-            this.menuOptions.Add("2", "Return to Previous Screen");
+            this.menuOptions.Add("2", "Return to Home Screen");
             this.quitKey = "2";
         }
 
@@ -61,14 +61,38 @@ namespace Capstone.Views
                     if (sites.Count > 0)
                     {
                         SetColor(ConsoleColor.Blue);
-                        Console.WriteLine(Site.GetHeader());
+                        Console.WriteLine(Site.PrintHeader());
                         foreach (Site site in sites)
                         {
                             Console.WriteLine(site);
                         }
                         Console.WriteLine();
-                        Pause("");
+                        
                         ResetColor();
+                        
+                        Console.WriteLine();
+                        int site_id = GetInteger("Which site should be reserved? (enter 0 to cancel)");
+                        if (site_id == 0)
+                        {
+                            return true;
+                        }
+                        //int durationOfStay = (toDate - fromDate).Days;
+                        decimal totalCost = reservationDAO.GetTotalCost(campgroundID, fromDate, toDate);
+                        Console.Write($"Total cost of your stay would be {totalCost:C}. Would you like to continue? Y/N ");
+                        string response = Console.ReadLine().ToUpper();
+                        if (response == "N")
+                        {
+                            return true;
+                        }
+                        string name = GetString("What name should the reservation be made under?");
+                        
+                        int confirmationNumber = reservationDAO.BookReservation(site_id, name, fromDate, toDate);
+                        Console.WriteLine();
+                        SetColor(ConsoleColor.DarkGreen);
+                        Console.WriteLine($"The reservation has been made and the confirmation id is {confirmationNumber}\nTotal Cost: {totalCost:C}");
+                        ResetColor();
+                        Pause("");
+                        
                         return true;
                     }
                     else
@@ -77,10 +101,10 @@ namespace Capstone.Views
                         Pause("");
                         return true;
                     }
-                case "2": // Do whatever option 2 is
-                    WriteError("When this option is complete, we will exit this submenu by returning false from the ExecuteSelection method.");
-                    Pause("");
-                    return false;
+                //case "2": // Do whatever option 2 is
+                    //WriteError("When this option is complete, we will exit this submenu by returning false from the ExecuteSelection method.");
+                    //Pause("");
+                    //return false;
             }
             return true;
         }

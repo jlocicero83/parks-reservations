@@ -30,6 +30,12 @@ namespace Capstone.Models
 
         };
 
+        //public decimal GetTotalFee(DateTime fromDate, DateTime toDate)
+        //{
+        //    int durationOfStay = (toDate - fromDate).Days;
+        //    return Daily_Fee * durationOfStay;
+        //}
+
         public static string GetHeader()
         {
             return $"{"ID",-5} {"Name",-35} {"Open",-15} {"Close",-15} {"Daily Fee",-15}\n{"--",-6}{"----", -36}{"----", -16}{"----", -16}{"---------", -16}";

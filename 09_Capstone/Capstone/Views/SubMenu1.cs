@@ -34,7 +34,7 @@ namespace CLI
         protected override void SetMenuOptions()
         {
             this.menuOptions.Add("1", "View Campgrounds");
-            this.menuOptions.Add("2", "Search for Reservation");
+            this.menuOptions.Add("2", "Reservations Menu");
             this.menuOptions.Add("3", "Return to Previous Screen");
             this.quitKey = "3";
         }
@@ -50,16 +50,22 @@ namespace CLI
             switch (choice)
             {
                 case "1": // Do whatever option 1 is
-                    SubMenu2 submenu2 = new SubMenu2(park, campgroundDAO, siteDAO, reservationDAO);
-                    submenu2.Run();
+                    SetColor(ConsoleColor.Blue);
+                    campgrounds = (campgroundDAO.GetCampgroundsByParkID(park.Park_ID));
+                    Console.WriteLine(Campground.GetHeader());
+                    foreach (Campground campground in campgrounds)
+                    {
+                        Console.WriteLine(campground.ToString());
+                    }
+                    ResetColor();
                     //WriteError("Not yet implemented");
-                    //Pause("");
+                    Pause("");
                     return true;
                 case "2": // Do whatever option 2 is
-                    SubMenu2 submenu2A = new SubMenu2(park, campgroundDAO, siteDAO, reservationDAO);
-                    submenu2A.Run();
-                    WriteError("When this option is complete, we will exit this submenu by returning false from the ExecuteSelection method.");
-                    Pause("");
+                    SubMenu2 submenu2 = new SubMenu2(park, campgroundDAO, siteDAO, reservationDAO);
+                    submenu2.Run();
+                    //WriteError("When this option is complete, we will exit this submenu by returning false from the ExecuteSelection method.");
+                    //Pause("");
                     return false;
             }
             return true;
