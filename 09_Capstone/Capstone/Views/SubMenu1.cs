@@ -50,8 +50,8 @@ namespace CLI
                 case "1": // Do whatever option 1 is
                     SubMenu2 submenu2 = new SubMenu2(park, campgroundDAO, siteDAO);
                     submenu2.Run();
-                    WriteError("Not yet implemented");
-                    Pause("");
+                    //WriteError("Not yet implemented");
+                    //Pause("");
                     return true;
                 case "2": // Do whatever option 2 is
                     WriteError("When this option is complete, we will exit this submenu by returning false from the ExecuteSelection method.");
@@ -64,21 +64,24 @@ namespace CLI
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();
+            SetColor(ConsoleColor.Blue);
             Console.WriteLine(park.ToString());
+            ResetColor();
         }
 
         protected override void AfterDisplayMenu()
         {
             base.AfterDisplayMenu();
             SetColor(ConsoleColor.Cyan);
-            Console.WriteLine("Display some data here, AFTER the sub-menu is shown....");
+            //Console.WriteLine("Display some data here, AFTER the sub-menu is shown....");
+            Console.WriteLine();
             ResetColor();
         }
 
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 1"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Park Info"));
             ResetColor();
         }
 

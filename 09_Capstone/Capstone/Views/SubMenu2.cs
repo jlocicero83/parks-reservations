@@ -46,7 +46,7 @@ namespace Capstone.Views
             switch (choice)
             {
                 case "1": // Do whatever option 1 is
-                    
+                    Console.WriteLine();
                     int campgroundID = GetInteger("Which campground?");
 
                     Console.Write("What is the arrival date? __/__/____ ");
@@ -58,12 +58,15 @@ namespace Capstone.Views
                     sites = siteDAO.SearchSitesByDate(campgroundID, fromDate, toDate);
                     if (sites.Count > 0)
                     {
+                        SetColor(ConsoleColor.Blue);
                         Console.WriteLine(Site.GetHeader());
                         foreach (Site site in sites)
                         {
                             Console.WriteLine(site);
                         }
+                        Console.WriteLine();
                         Pause("");
+                        ResetColor();
                         return true;
                     }
                     else
@@ -83,26 +86,29 @@ namespace Capstone.Views
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();
+            SetColor(ConsoleColor.Blue);
             campgrounds = (campgroundDAO.GetCampgroundsByParkID(park.Park_ID));
             Console.WriteLine(Campground.GetHeader());
             foreach (Campground campground in campgrounds)
             {
                 Console.WriteLine(campground.ToString());
             }
+            ResetColor();
         }
 
         protected override void AfterDisplayMenu()
         {
             base.AfterDisplayMenu();
             SetColor(ConsoleColor.Cyan);
-            Console.WriteLine("Display some data here, AFTER the sub-menu is shown....");
+            //Console.WriteLine("Display some data here, AFTER the sub-menu is shown....");
+            Console.WriteLine();
             ResetColor();
         }
 
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 2"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Campground Info"));
             ResetColor();
         }
     }

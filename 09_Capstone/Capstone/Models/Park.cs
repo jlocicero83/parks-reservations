@@ -18,7 +18,13 @@ namespace Capstone.Models
 
         public override string ToString()
         {
-            return $"{this.Name} National Park\n********************\nLocation: {this.Location, 5}\nEstablished: {this.Establish_Date.ToString(), 5}\nArea: {this.Area} sq km\nAnnual Visitors: {this.Visitors}\n\n{this.Description}\n\n";
+            return $"{this.Name,12} National Park\n" +
+                $"**********************************\n" +
+                $"{"Location:",-20} {this.Location}\n" +
+                $"{"Established:",-20} {this.Establish_Date.ToString("MM/dd/yyyy")}\n" +
+                $"{"Area:", -20} {this.Area} sq. km.\n" +
+                $"{"Annual Visitors:",-20} {this.Visitors:N0}\n\n" +
+                $"{this.Description}\n\n";
 
         }
     }

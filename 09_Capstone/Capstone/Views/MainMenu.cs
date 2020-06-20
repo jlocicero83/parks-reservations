@@ -32,7 +32,7 @@ namespace CLI
             int key = 1;
             foreach (Park park in parks)
             {
-                this.menuOptions.Add(key.ToString(), park.Name);
+                this.menuOptions.Add(key.ToString(), park.Name + " Park");
                 key++;
             }
             
@@ -84,13 +84,16 @@ namespace CLI
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();
+            
         }
 
 
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Yellow);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Main Menu"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Parks and Recreation"));
+            
+            SetColor(ConsoleColor.White);
             ResetColor();
         }
     }
