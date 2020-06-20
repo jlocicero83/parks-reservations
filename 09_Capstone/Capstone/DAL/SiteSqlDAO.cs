@@ -36,7 +36,7 @@ namespace Capstone.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(sqlQuery, conn);
-                    cmd.Parameters.AddWithValue("@campground_ID", campgroundID);
+                    cmd.Parameters.AddWithValue("@campground_id", campgroundID);
                     cmd.Parameters.AddWithValue("@from", fromDate);
                     cmd.Parameters.AddWithValue("@to", toDate);
 
