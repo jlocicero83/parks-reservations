@@ -16,16 +16,18 @@ namespace Capstone.Views
         private ISiteSqlDAO siteDAO;
         private IList<Campground> campgrounds;
         private IList<Site> sites;
+        private IReservationSqlDAO reservationDAO;
 
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
-        public SubMenu2(Park park, ICampgroundSqlDAO campgroundDAO, ISiteSqlDAO siteDAO) :
+        public SubMenu2(Park park, ICampgroundSqlDAO campgroundDAO, ISiteSqlDAO siteDAO, IReservationSqlDAO reservationDAO) :
             base("Sub-Menu 2")
         {
             this.park = park;
             this.campgroundDAO = campgroundDAO;
             this.siteDAO = siteDAO;
+            this.reservationDAO = reservationDAO;
         }
 
         protected override void SetMenuOptions()

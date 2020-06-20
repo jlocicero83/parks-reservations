@@ -15,15 +15,17 @@ namespace CLI
         protected ICampgroundSqlDAO campgroundDAO;
         protected ISiteSqlDAO siteDAO;
         protected IParkSqlDAO parkDAO;
+        protected IReservationSqlDAO reservationDAO;
         /// <summary>
         /// Constructor adds items to the top-level menu. You will likely have parameters  passed in
         /// here...
         /// </summary>
-        public MainMenu(ICampgroundSqlDAO campgroundDAO, ISiteSqlDAO siteDAO, IParkSqlDAO parkDAO) : base("Main Menu")
+        public MainMenu(ICampgroundSqlDAO campgroundDAO, ISiteSqlDAO siteDAO, IParkSqlDAO parkDAO, IReservationSqlDAO reservationDAO) : base("Main Menu")
         {
             this.campgroundDAO = campgroundDAO;
             this.siteDAO = siteDAO;
             this.parkDAO = parkDAO;
+            this.reservationDAO = reservationDAO;
         }
 
         protected override void SetMenuOptions()
@@ -54,7 +56,8 @@ namespace CLI
             IList<Park> parks = parkDAO.GetAllParks();
             int key = int.Parse(choice) - 1;
             Park park = parks[key];
-            SubMenu1 subMenu1 = new SubMenu1(park, campgroundDAO, siteDAO);
+            SubMenu1 subMenu1 = new SubMenu1(park, campgroundDAO, siteDAO, reservationDAO);
+
             subMenu1.Run();
 
             //switch (choice)

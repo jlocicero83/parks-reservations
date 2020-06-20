@@ -27,9 +27,10 @@ namespace Capstone
             ICampgroundSqlDAO campgroundDAO = new CampgroundSqlDAO(connectionString);
             IParkSqlDAO parkDAO = new ParkSqlDAO(connectionString);
             ISiteSqlDAO siteDAO = new SiteSqlDAO(connectionString);
+            IReservationSqlDAO reservationDAO = new ReservationSqlDAO(connectionString);
 
 
-            MainMenu mainMenu = new MainMenu(campgroundDAO, siteDAO, parkDAO);  // You'll probably be adding daos to the constructor
+            MainMenu mainMenu = new MainMenu(campgroundDAO, siteDAO, parkDAO, reservationDAO);  // You'll probably be adding daos to the constructor
 
             // Run the menu.
             mainMenu.Run();
